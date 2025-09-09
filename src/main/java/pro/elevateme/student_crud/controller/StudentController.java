@@ -2,6 +2,8 @@ package pro.elevateme.student_crud.controller;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pro.elevateme.student_crud.model.Student;
 import pro.elevateme.student_crud.service.StudentService;
@@ -21,8 +23,9 @@ public class StudentController {
 
     //CREATE
     @PostMapping("/create")
-    public Student createStudent(@Valid @RequestBody Student student) {
-        return studentService.createStudent(student);
+    public ResponseEntity<Student> createStudent(@Valid @RequestBody Student student) {
+        Student newStudent = studentService.createStudent(student);
+        return new ResponseEntity<>(newStudent, HttpStatus.CREATED);
     }
 
     //READ ALL
