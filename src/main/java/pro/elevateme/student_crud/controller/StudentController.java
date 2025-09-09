@@ -1,5 +1,6 @@
 package pro.elevateme.student_crud.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +12,8 @@ import pro.elevateme.student_crud.service.StudentService;
 @RequestMapping("/api/students")
 public class StudentController {
 
-    public final StudentService studentService;
+    @Autowired
+    private final StudentService studentService;
 
     public StudentController(StudentService studentService) {
         this.studentService = studentService;
