@@ -2,6 +2,7 @@ package pro.elevateme.student_crud.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pro.elevateme.student_crud.exception.StudentNotFoundException;
 import pro.elevateme.student_crud.model.Student;
 import pro.elevateme.student_crud.repository.StudentRepository;
 
@@ -30,7 +31,7 @@ public class StudentService {
     //READ BY ID
     public Student getStudentById(long id) {
         return studentRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Student not found with id: " + id));
+                .orElseThrow(() -> new StudentNotFoundException("Student not found with id: " + id));
     }
 
     //UPDATE
