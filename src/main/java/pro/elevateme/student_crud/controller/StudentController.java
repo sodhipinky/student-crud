@@ -1,5 +1,6 @@
 package pro.elevateme.student_crud.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pro.elevateme.student_crud.model.Student;
@@ -20,7 +21,7 @@ public class StudentController {
 
     //CREATE
     @PostMapping("/create")
-    public Student createStudent(@RequestBody Student student) {
+    public Student createStudent(@Valid @RequestBody Student student) {
         return studentService.createStudent(student);
     }
 
@@ -38,7 +39,7 @@ public class StudentController {
 
     //UPDATE
     @PutMapping("update/{id}")
-    public Student updateStudent(@PathVariable long id, @RequestBody Student updatedStudent) {
+    public Student updateStudent(@PathVariable long id, @Valid @RequestBody Student updatedStudent) {
         return studentService.updateStudent(id, updatedStudent);
     }
 
