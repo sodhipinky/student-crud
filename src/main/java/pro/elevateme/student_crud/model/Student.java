@@ -2,61 +2,75 @@ package pro.elevateme.student_crud.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "students")
 public class Student {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private long id;
 
-    @NotBlank(message = "Name is mandatory")
-    @Size(min = 2, max = 50, message = "Name must be between 2 and 50 characters")
-    private String name;
+  @NotBlank(message = "Name is mandatory")
+  @Size(min = 2, max = 50, message = "Name must be between 2 and 50 characters")
+  private String name;
 
-    @Email(message = "Email should be valid")
-    @NotBlank(message = "Email is mandatory")
-    private String email;
+  @Email(message = "Email should be valid")
+  @NotBlank(message = "Email is mandatory")
+  private String email;
 
-    @NotBlank(message = "Course is mandatory")
-    private String course;
+  @NotBlank(message = "Course is mandatory")
+  private String course;
 
-    public Student() {
-    }
+  @NotNull(message = "Age is mandatory")
+  @Min(value = 15, message = "Age should not be less than 15")
+  private Integer age;
 
-    public Student(String name, String email, String course) {
-        this.name = name;
-        this.email = email;
-        this.course = course;
-    }
+  public Student() {}
 
-    public String getName() {
-        return name;
-    }
+  public Student(String name, String email, String course, Integer age) {
+    this.name = name;
+    this.email = email;
+    this.course = course;
+    this.age = age;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public String getEmail() {
-        return email;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+  public String getEmail() {
+    return email;
+  }
 
-    public String getCourse() {
-        return course;
-    }
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
-    public void setCourse(String course) {
-        this.course = course;
-    }
+  public String getCourse() {
+    return course;
+  }
 
-    public long getId() {
-        return id;
-    }
+  public void setCourse(String course) {
+    this.course = course;
+  }
+
+  public long getId() {
+    return id;
+  }
+
+  public void setAge(Integer age) {
+    this.age = age;
+  }
+
+  public int getAge() {
+    return age;
+  }
 }
