@@ -10,35 +10,40 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import java.util.List;
 
 @Entity
-@Table(name = "students")
-public class Student {
+@Table(name = "teachers")
+public class Teacher {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long id;
+  private Long id;
 
-  @NotBlank(message = "Name is mandatory")
-  @Size(min = 2, max = 50, message = "Name must be between 2 and 50 characters")
+  public Long getId() {
+    return id;
+  }
+
+  @NotBlank(message = "Name is manditory")
   private String name;
 
-  @Email(message = "Email should be valid")
-  @NotBlank(message = "Email is mandatory")
+  @Email(message = "email should be valid")
+  @NotBlank(message = "Email is manditory")
   private String email;
 
-  @NotBlank(message = "Course is mandatory")
-  private String course;
+  @Size(min = 1, message = "Atleast one course must be selected")
+  private List<String> courses;
 
-  @NotNull(message = "Age is mandatory")
-  @Min(value = 15, message = "Age should not be less than 15")
+  @NotNull(message = "Age is manditory")
+  @Min(value = 25, message = "Age should not be less the 25")
   private Integer age;
 
-  public Student() {}
+  public Teacher() {}
 
-  public Student(String name, String email, String course, Integer age) {
+  public Teacher(String name, String email, List<String> courses, Integer age) {
     this.name = name;
     this.email = email;
-    this.course = course;
+    this.courses = courses;
     this.age = age;
   }
 
@@ -58,23 +63,19 @@ public class Student {
     this.email = email;
   }
 
-  public String getCourse() {
-    return course;
+  public List<String> getCourses() {
+    return courses;
   }
 
-  public void setCourse(String course) {
-    this.course = course;
+  public void setCourses(List<String> courses) {
+    this.courses = courses;
   }
 
-  public long getId() {
-    return id;
+  public Integer getAge() {
+    return age;
   }
 
   public void setAge(Integer age) {
     this.age = age;
-  }
-
-  public int getAge() {
-    return age;
   }
 }
