@@ -4,8 +4,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.CannotCreateTransactionException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -27,6 +29,19 @@ public class GlobalExceptionHandler {
     response.put("errors", errors);
 
     return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+  }
+
+  @ExceptionHandler({
+    DataAccessResourceFailureException.class,
+    CannotCreateTransactionException.class
+  })
+  public ResponseEntity<Map<String, Object>> handleCannotGetJdbcConnection(Exception ex) {
+    Map<String, Object> response = new HashMap<>();
+    response.put("timestamp", new Date());
+    response.put("status", HttpStatus.SERVICE_UNAVAILABLE.value());
+    response.put("error", "Database unavailable. Please try again later.");
+    response.put("details", ex.getMessage());
+    return new ResponseEntity<>(response, HttpStatus.SERVICE_UNAVAILABLE);
   }
 
   @ExceptionHandler(StudentNotFoundException.class)
