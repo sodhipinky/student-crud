@@ -25,8 +25,8 @@ class StudentServiceTest {
     @Test
     void testCreateStudent() {
         // Arrange: Create a mock student and tell Mockito what to return when save is called
-        Student student = new Student("Alice", "alice@example.com", "Software Engineering");
-        when(studentRepository.save(any())).thenReturn(new Student("Alice", "alice@example.com", "Software Engineering"));
+        Student student = new Student("Alice", "alice@example.com", "Software Engineering", 24);
+        when(studentRepository.save(any())).thenReturn(new Student("Alice", "alice@example.com", "Software Engineering", 24));
 
         // Act: Call the service method
         Student savedStudent = studentService.createStudent(student);
