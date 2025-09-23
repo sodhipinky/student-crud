@@ -8,6 +8,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import pro.elevateme.student_crud.model.Student;
 import pro.elevateme.student_crud.repository.StudentRepository;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
@@ -36,5 +38,26 @@ class StudentServiceTest {
 
         // Verify: Ensure that the repository's save method was called
         verify(studentRepository).save(student);
+    }
+
+    @Test
+    void testGetStudentById() {
+        // Arrange: Create a mock student and tell Mockito what to return when findById is called
+        long studentId = 1L;
+        Student student = new Student("Bob", "bob@example.com", "Mathematics", 22);
+        when(studentRepository.findById(studentId)).thenReturn(Optional.of(new Student("Bob", "bob@example.com", "Mathematics", 22)).map(s -> {
+            s.setId(studentId);
+            return s;
+        }));
+
+        // Act: Call the service method
+        Student foundStudent = studentService.getStudentById(studentId);
+
+        // Assert: Check that the returned student is as expected
+        assertEquals(1, foundStudent.getId());
+        assertEquals("Bob", foundStudent.getName());
+
+        // Verify: Ensure that the repository's findById method was called
+        verify(studentRepository).findById(studentId);
     }
 }
