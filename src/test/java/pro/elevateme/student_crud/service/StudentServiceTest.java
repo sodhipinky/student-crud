@@ -45,7 +45,7 @@ class StudentServiceTest {
         // Arrange: Create a mock student and tell Mockito what to return when findById is called
         long studentId = 1L;
         Student student = new Student("Bob", "bob@example.com", "Mathematics", 22);
-        when(studentRepository.findById(studentId)).thenReturn(Optional.of(new Student("Bob", "bob@example.com", "Mathematics", 22)).map(s -> {
+        when(studentRepository.findById(studentId)).thenReturn(Optional.of(student).map(s -> {
             s.setId(studentId);
             return s;
         }));
